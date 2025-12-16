@@ -2,42 +2,35 @@
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  color: #e8ecf3;
-  background-color: #0b0d10;
+  color: #e0e0e0;
+  background-color: #2C2C2C;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Logo 颜色主题 */
-  --logo-primary: #3a5a6a;
-  --logo-dark: #1a3a4a;
-  --logo-light: #556b7a;
-  --accent-blue: #2a7aaf;
-  --accent-cyan: #4aa0d0;
-
   /* Element Plus CSS 变量主题 */
-  --el-color-primary: #2a7aaf;
-  --el-color-primary-light-3: rgba(42, 122, 175, 0.3);
-  --el-color-primary-light-5: rgba(42, 122, 175, 0.5);
-  --el-color-primary-light-7: rgba(42, 122, 175, 0.7);
-  --el-color-primary-light-8: rgba(42, 122, 175, 0.8);
-  --el-color-primary-light-9: rgba(42, 122, 175, 0.9);
+  --el-color-primary: #007ACC;
+  --el-color-primary-light-3: rgba(0, 122, 204, 0.3);
+  --el-color-primary-light-5: rgba(0, 122, 204, 0.5);
+  --el-color-primary-light-7: rgba(0, 122, 204, 0.7);
+  --el-color-primary-light-8: rgba(0, 122, 204, 0.8);
+  --el-color-primary-light-9: rgba(0, 122, 204, 0.9);
   
-  --el-border-color-base: #1f2733;
-  --el-border-color-light: #2a3340;
-  --el-border-color-lighter: #23262f;
+  --el-border-color-base: #404040;
+  --el-border-color-light: #4a4a4a;
+  --el-border-color-lighter: #353535;
   
-  --el-fill-color-blank: #0b0d10;
-  --el-fill-color-light: #13161d;
-  --el-fill-color-lighter: #1a1d25;
+  --el-fill-color-blank: #2C2C2C;
+  --el-fill-color-light: #353535;
+  --el-fill-color-lighter: #404040;
   
-  --el-bg-color: #0f1115;
-  --el-bg-color-page: #0b0d10;
+  --el-bg-color: #353535;
+  --el-bg-color-page: #2C2C2C;
   
-  --el-text-color-primary: #e8ecf3;
-  --el-text-color-regular: #d8e0ee;
-  --el-text-color-secondary: #8a93a5;
-  --el-text-color-disabled: #5a6270;
+  --el-text-color-primary: #e0e0e0;
+  --el-text-color-regular: #c8c8c8;
+  --el-text-color-secondary: #888888;
+  --el-text-color-disabled: #5a5a5a;
 }
 
 * {
@@ -47,11 +40,11 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #0b0d10;
+  background-color: #2C2C2C;
 }
 
 a {
-  color: #7ab7ff;
+  color: #007ACC;
 }
 
 #app {
@@ -64,12 +57,12 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2c3442;
+  background: #007ACC;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a4354;
+  background: #0098ff;
 }
 
 /* ============ 全局组件样式 ============ */
@@ -81,8 +74,8 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  border-bottom: 1px solid #23262f;
-  background: rgba(15, 17, 21, 0.95);
+  border-bottom: 1px solid #404040;
+  background: rgba(44, 44, 44, 0.95);
   backdrop-filter: blur(12px);
   flex-shrink: 0;
 }
@@ -97,12 +90,13 @@ a {
   font-weight: 700;
   letter-spacing: 0.5px;
   font-size: 16px;
+  color: #e0e0e0;
 }
 
 /* 侧边面板 */
 .adjust-panel {
-  background: rgba(19, 22, 29, 0.9);
-  border-left: 1px solid #23262f;
+  background: rgba(44, 44, 44, 0.9);
+  border-left: 1px solid #404040;
   padding: 12px;
   overflow-y: auto;
   flex-shrink: 0;
@@ -119,7 +113,7 @@ a {
 .section-title {
   font-weight: 600;
   font-size: 13px;
-  color: #b0b8c6;
+  color: #a8a8a8;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
@@ -136,15 +130,15 @@ a {
   grid-template-columns: 80px 1fr 60px;
   align-items: center;
   gap: 8px;
-  background: #0f1115;
-  border: 1px solid #1f2733;
+  background: #353535;
+  border: 1px solid #404040;
   border-radius: 6px;
   padding: 8px;
 }
 
 .param-label {
   font-size: 12px;
-  color: #8a93a5;
+  color: #888888;
   font-weight: 500;
 }
 
@@ -152,13 +146,13 @@ a {
   text-align: right;
   font-size: 12px;
   font-weight: 600;
-  color: #7ab7ff;
+  color: #007ACC;
   font-family: 'Monaco', monospace;
 }
 
 /* Canvas 画布区域 */
 .canvas-container {
-  background: repeating-conic-gradient(#1a1d25 0% 25%, #161821 0% 50%);
+  background: repeating-conic-gradient(#353535 0% 25%, #303030 0% 50%);
   background-size: 20px 20px;
   display: flex;
   align-items: center;
