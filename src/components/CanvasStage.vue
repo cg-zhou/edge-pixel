@@ -4,7 +4,6 @@ import { useCanvasStore } from '../stores/canvas'
 
 const canvasStore = useCanvasStore()
 const canvasEl = ref<HTMLCanvasElement | null>(null)
-let animationId: number | null = null
 
 const applyFilters = () => {
   const canvas = canvasEl.value
@@ -35,7 +34,7 @@ const applyFilters = () => {
 
 const renderFrame = () => {
   applyFilters()
-  animationId = requestAnimationFrame(renderFrame)
+  requestAnimationFrame(renderFrame)
 }
 
 onMounted(() => {
