@@ -45,7 +45,6 @@ onMounted(() => {
 <template>
   <div class="canvas-container">
     <div v-if="!canvasStore.imageSrc" class="placeholder">
-      <div class="placeholder-icon">🖼️</div>
       <div class="placeholder-text">导入图片开始编辑</div>
     </div>
     <div v-else class="canvas-wrapper">
@@ -61,7 +60,6 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  color: #5a6270;
 }
 
 .placeholder-icon {
@@ -78,7 +76,6 @@ onMounted(() => {
 .image-canvas {
   max-width: 100%;
   max-height: 100%;
-  border-radius: 8px;
-  box-shadow: 0 14px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 </style>

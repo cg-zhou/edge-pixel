@@ -1,7 +1,18 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import EditorToolbar from './components/EditorToolbar.vue'
 import CanvasStage from './components/CanvasStage.vue'
 import AdjustPanel from './components/AdjustPanel.vue'
+import StatusBar from './components/StatusBar.vue'
+import { useCanvasStore } from './stores/canvas'
+import demoDemoJpg from './assets/demo.jpg'
+
+const canvasStore = useCanvasStore()
+
+onMounted(() => {
+  // 首次打开时加载 demo 图片
+  canvasStore.setImage(demoDemoJpg, 'demo.jpg')
+})
 </script>
 
 <template>
@@ -11,6 +22,7 @@ import AdjustPanel from './components/AdjustPanel.vue'
       <CanvasStage />
       <AdjustPanel />
     </div>
+    <StatusBar />
   </div>
 </template>
 

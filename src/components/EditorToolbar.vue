@@ -14,7 +14,7 @@ const handleFileSelect = (e: Event) => {
   const reader = new FileReader()
   reader.onload = (evt) => {
     const src = evt.target?.result as string
-    canvasStore.setImage(src)
+    canvasStore.setImage(src, file.name)
   }
   reader.readAsDataURL(file)
   input.value = ''

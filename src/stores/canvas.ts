@@ -13,12 +13,16 @@ interface CanvasState {
   originalImage: HTMLImageElement | null
   imageSrc: string
   filterParams: FilterParams
+  imageSize: number // 图片大小（字节）
+  fileName: string // 文件名
 }
 
 export const useCanvasStore = defineStore('canvas', {
   state: (): CanvasState => ({
     originalImage: null,
     imageSrc: '',
+    imageSize: 0,
+    fileName: '',
     filterParams: {
       hue: 0,
       saturation: 0,
@@ -29,12 +33,18 @@ export const useCanvasStore = defineStore('canvas', {
     },
   }),
   actions: {
-    setImage(src: string) {
+    setImage(src: string, fileName: string = 'image') {
       this.imageSrc = src
+      this.fileName = fileName
       const img = new Image()
       img.crossOrigin = 'anonymous'
       img.onload = () => {
         this.originalImage = img
+        // 从 src 获取文件大小（如果是 data URL）
+        if (src.startsWith('data:')) {
+          const decoded = atob(src.split(',')[1])
+          this.imageSize = decoded.length
+        }
       }
       img.src = src
     },
