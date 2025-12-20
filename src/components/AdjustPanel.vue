@@ -76,36 +76,31 @@ const updateValue = (key: keyof typeof params.value, value: number) => {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
 .panel-group {
-  border: 1px solid #1f2733;
-  border-radius: 4px;
-  overflow: hidden;
+  border: 1px solid #303844;
+  border-radius: 6px;
+  background-color: #0d1117;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
 }
 
 .group-header {
-  padding: 8px 12px;
-  background-color: rgba(31, 39, 51, 0.5);
-  font-weight: 600;
-  font-size: 12px;
-  color: #b0b8c6;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, #1f2733 0%, #16202b 100%);
+  font-weight: 700;
+  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid #1f2733;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #303844;
 }
 
 .group-items {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 8px 12px;
-  border-bottom: 1px solid #1f2733;
-
-  &:last-child {
-    border-bottom: none;
-  }
+  gap: 10px;
+  padding: 12px;
 }
 
 .param-control {
@@ -117,13 +112,16 @@ const updateValue = (key: keyof typeof params.value, value: number) => {
 }
 
 .param-label {
-  font-size: 11px;
   color: #8a93a5;
   white-space: nowrap;
 }
 
 .panel-footer {
-  padding: 8px;
-  text-align: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.panel-footer :deep(.el-button) {
+  flex: 0;
 }
 </style>

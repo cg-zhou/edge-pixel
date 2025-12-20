@@ -52,14 +52,14 @@ const handleUpdate = (value: number) => {
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  padding: 8px;
+  padding: 4px 6px;
 }
 
 .param-label {
-  font-size: 11px;
+  font-size: 12px;
   color: #8a93a5;
   white-space: nowrap;
-  width: 34px;
+  width: 35px;
 }
 
 .param-slider {

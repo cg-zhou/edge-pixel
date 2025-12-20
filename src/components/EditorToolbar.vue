@@ -49,21 +49,12 @@ const handleExport = () => {
 
     <div class="topbar-section">
       <el-button type="primary" @click="triggerFileInput">导入图片</el-button>
-      <el-button
-        :disabled="!canvasStore.imageSrc || isExporting"
-        @click="handleExport"
-      >
+      <el-button :disabled="!canvasStore.imageSrc || isExporting" @click="handleExport">
         {{ isExporting ? '导出中...' : '导出' }}
       </el-button>
     </div>
 
-    <input
-      ref="fileInput"
-      type="file"
-      accept="image/*"
-      @change="handleFileSelect"
-      style="display: none"
-    />
+    <input ref="fileInput" type="file" accept="image/*" @change="handleFileSelect" style="display: none" />
   </div>
 </template>
 
