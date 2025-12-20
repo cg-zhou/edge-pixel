@@ -10,15 +10,23 @@ A high-performance image editing tool powered by Alibaba Cloud ESA edge computin
 
 ## Features
 
-- **Real-time Image Editing**: Support for multiple parameter adjustments including hue, saturation, brightness, contrast and more
-- **Grain Effects**: Professional image grain processing algorithm
-- **High Performance**: Edge computing acceleration
+### Performance & Acceleration
+- **Ultra-fast Loading** - Deployed on [Alibaba Cloud ESA](https://www.alibabacloud.com/product/esa)  with global CDN acceleration for faster loading speeds
+- **Efficient Processing** - Real-time preview processing with smooth user experience
 
-## Supported Parameters
+### Image Editing
+- **Real-time Adjustment** - Multi-dimensional parameters with real-time preview
+- **Color Adjustment** - Hue, Saturation, Invert, Grayscale
+- **Brightness & Contrast** - Brightness, Contrast, Highlights, Shadows, Exposure
+- **Effects Processing** - Blur, Grain, Fade, Vignette
 
-- **Color**: Hue, Saturation, Lightness
-- **Brightness**: Brightness, Contrast, Highlights, Shadows, Exposure
-- **Effects**: Blur, Grain, Fade, Vignette
+### Image Transform
+- **Scale** - Flexible scaling from 10% to 200%, real-time pixel size display
+- **Rotate** - Support -180° to 180° rotation range, quick buttons for 90° rotation
+- **Flip** - Support horizontal and vertical flip
+
+### Export Functions
+- **Multi-format Support** - PNG (lossless), JPG (universal compression), WebP (optimal compression)
 
 ## Quick Start
 

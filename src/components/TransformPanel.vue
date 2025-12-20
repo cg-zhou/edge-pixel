@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useCanvasStore } from '../stores/canvas'
 import ParamControl from './ParamControl.vue'
+import SwitchControl from './SwitchControl.vue'
 
 const canvasStore = useCanvasStore()
 
@@ -68,16 +69,10 @@ const dimensions = computed(() => {
     <div class="panel-group">
       <div class="group-header">翻转</div>
       <div class="group-items">
-        <div class="flip-controls">
-          <div class="flip-item">
-            <span class="flip-label">水平翻转</span>
-            <el-switch v-model="canvasStore.flipH" size="small" />
-          </div>
-          <div class="flip-item">
-            <span class="flip-label">垂直翻转</span>
-            <el-switch v-model="canvasStore.flipV" size="small" />
-          </div>
-        </div>
+        <SwitchControl label="水平翻转" :model-value="canvasStore.flipH"
+          @update:model-value="(v) => updateValue('flipH', v)" />
+        <SwitchControl label="垂直翻转" :model-value="canvasStore.flipV"
+          @update:model-value="(v) => updateValue('flipV', v)" />
       </div>
     </div>
 
@@ -144,24 +139,6 @@ const dimensions = computed(() => {
 
 .dimension-value {
   font-weight: normal;
-}
-
-.flip-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.flip-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 0;
-}
-
-.flip-label {
-  color: #8a93a5;
-  font-size: 13px;
 }
 
 .panel-footer {

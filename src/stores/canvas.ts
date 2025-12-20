@@ -2,8 +2,10 @@ import { defineStore } from 'pinia'
 
 export interface FilterParams {
   // 色彩分组
-  hue: number // 色调 -180 ~ 180
+  hue: number // 色相 -180 ~ 180
   saturation: number // 饱和度 -100 ~ 100
+  invert: boolean // 反色
+  grayscale: boolean // 灰阶
 
   // 明度分组
   brightness: number // 亮度 -100 ~ 100
@@ -47,6 +49,8 @@ export const useCanvasStore = defineStore('canvas', {
     filterParams: {
       hue: 0,
       saturation: 0,
+      invert: false,
+      grayscale: false,
       brightness: 0,
       contrast: 0,
       highlights: 0,
@@ -78,13 +82,15 @@ export const useCanvasStore = defineStore('canvas', {
       }
       img.src = src
     },
-    updateFilter(key: keyof FilterParams, value: number) {
-      this.filterParams[key] = value
+    updateFilter(key: keyof FilterParams, value: number | boolean) {
+      ;(this.filterParams as any)[key] = value
     },
     resetFilters() {
       this.filterParams = {
         hue: 0,
         saturation: 0,
+        invert: false,
+        grayscale: false,
         brightness: 0,
         contrast: 0,
         highlights: 0,

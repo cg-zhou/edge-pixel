@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useCanvasStore } from '../stores/canvas'
 import ParamControl from './ParamControl.vue'
+import SwitchControl from './SwitchControl.vue'
 import TransformPanel from './TransformPanel.vue'
 
 const canvasStore = useCanvasStore()
@@ -11,7 +12,7 @@ const handleReset = () => {
   canvasStore.resetFilters()
 }
 
-const updateValue = (key: keyof typeof canvasStore.filterParams, value: number) => {
+const updateValue = (key: keyof typeof canvasStore.filterParams, value: number | boolean) => {
   canvasStore.updateFilter(key, value)
 }
 
@@ -27,10 +28,17 @@ const updateValue = (key: keyof typeof canvasStore.filterParams, value: number) 
           <div class="panel-group">
             <div class="group-header">色彩</div>
             <div class="group-items">
-              <ParamControl label="色调" :model-value="canvasStore.filterParams.hue" :min="-180" :max="180"
+              <ParamControl label="色相" :model-value="canvasStore.filterParams.hue" :min="-180" :max="180"
                 @update:model-value="(v) => updateValue('hue', v)" />
               <ParamControl label="饱和度" :model-value="canvasStore.filterParams.saturation" :min="-100" :max="100"
                 @update:model-value="(v) => updateValue('saturation', v)" />
+
+              <div class="color-switches">
+                <SwitchControl label="反色" :model-value="canvasStore.filterParams.invert"
+                  @update:model-value="(v) => updateValue('invert', v)" />
+                <SwitchControl label="灰阶" :model-value="canvasStore.filterParams.grayscale"
+                  @update:model-value="(v) => updateValue('grayscale', v)" />
+              </div>
             </div>
           </div>
 
@@ -131,6 +139,12 @@ const updateValue = (key: keyof typeof canvasStore.filterParams, value: number) 
   flex-direction: column;
   gap: 10px;
   padding: 12px;
+}
+
+.color-switches {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .param-control {

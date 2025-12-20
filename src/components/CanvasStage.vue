@@ -16,6 +16,8 @@ const applyFilters = () => {
   const {
     hue,
     saturation,
+    invert,
+    grayscale,
     brightness,
     contrast,
     highlights,
@@ -56,6 +58,8 @@ const applyFilters = () => {
     `contrast(${100 + contrast}%)`,
     `blur(${blur}px)`,
     `invert(${fade * 0.3}%)`,
+    invert ? `invert(100%)` : `invert(0%)`,
+    grayscale ? `grayscale(100%)` : `grayscale(0%)`,
   ]
 
   if (highlights > 0) {
