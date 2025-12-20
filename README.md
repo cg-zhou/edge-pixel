@@ -6,6 +6,7 @@
 
 一个基于 ESA 边缘计算的图像编辑工具
 
+**在线访问**: [https://pixel.cg-zhou.top](https://pixel.cg-zhou.top)
 
 ## 功能特性
 

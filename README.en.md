@@ -6,6 +6,8 @@ English Documentation | [中文文档](README.md)
 
 A high-performance image editing tool powered by Alibaba Cloud ESA edge computing
 
+**Online Access**: [https://pixel.cg-zhou.top](https://pixel.cg-zhou.top)
+
 ## Features
 
 - **Real-time Image Editing**: Support for multiple parameter adjustments including hue, saturation, brightness, contrast and more
