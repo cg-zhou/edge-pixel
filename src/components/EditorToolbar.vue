@@ -24,19 +24,39 @@ const triggerFileInput = () => {
   fileInput.value?.click()
 }
 
-const handleExport = () => {
+type ExportFormat = 'png' | 'jpg' | 'webp'
+
+const exportImage = (format: ExportFormat = 'jpg') => {
   const canvas = document.querySelector('canvas') as HTMLCanvasElement
   if (!canvas) return
 
   isExporting.value = true
+
+  const formatConfig: Record<ExportFormat, { mime: string; quality: number }> = {
+    png: { mime: 'image/png', quality: 1 },
+    jpg: { mime: 'image/jpeg', quality: 0.9 },
+    webp: { mime: 'image/webp', quality: 0.85 },
+  }
+
+  const config = formatConfig[format]
+  const dataUrl = canvas.toDataURL(config.mime, config.quality)
+
   const link = document.createElement('a')
-  link.href = canvas.toDataURL('image/png')
-  link.download = `edited-image-${Date.now()}.png`
+  link.href = dataUrl
+  link.download = `edited-image-${Date.now()}.${format}`
   link.click()
 
   setTimeout(() => {
     isExporting.value = false
   }, 500)
+}
+
+const handleExportClick = () => {
+  exportImage('jpg')
+}
+
+const handleDropdownCommand = (command: string) => {
+  exportImage(command as ExportFormat)
 }
 </script>
 
@@ -48,10 +68,23 @@ const handleExport = () => {
     </div>
 
     <div class="topbar-section">
-      <el-button type="primary" @click="triggerFileInput">导入图片</el-button>
-      <el-button :disabled="!canvasStore.imageSrc || isExporting" @click="handleExport">
-        {{ isExporting ? '导出中...' : '导出' }}
-      </el-button>
+      <el-button type="primary" @click="triggerFileInput">打开图片</el-button>
+      <el-dropdown
+        :disabled="!canvasStore.imageSrc"
+        split-button
+        type="primary"
+        @click="handleExportClick"
+        @command="handleDropdownCommand"
+      >
+        {{ isExporting ? '下载中...' : '下载图片' }}
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="png">PNG - 无损格式</el-dropdown-item>
+            <el-dropdown-item command="jpg">JPG - 通用压缩</el-dropdown-item>
+            <el-dropdown-item command="webp">WebP - 最优压缩</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
 
     <input ref="fileInput" type="file" accept="image/*" @change="handleFileSelect" style="display: none" />
@@ -71,4 +104,5 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 </style>

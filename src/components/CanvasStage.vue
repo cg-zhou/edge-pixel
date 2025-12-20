@@ -105,7 +105,7 @@ onMounted(() => {
 <template>
   <div class="canvas-container">
     <div v-if="!canvasStore.imageSrc" class="placeholder">
-      <div class="placeholder-text">导入图片开始编辑</div>
+      <div class="placeholder-text">打开图片开始编辑</div>
     </div>
     <div v-else class="canvas-wrapper">
       <canvas ref="canvasEl" class="image-canvas"></canvas>

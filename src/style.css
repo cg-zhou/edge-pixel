@@ -31,6 +31,8 @@
   --el-text-color-regular: #c8c8c8;
   --el-text-color-secondary: #888888;
   --el-text-color-disabled: #5a5a5a;
+
+  --el-bg-color-overlay: #0d1117;
 }
 
 .el-slider {
@@ -38,8 +40,9 @@
   --el-slider-button-size: 15px;
 }
 
-* {
-  box-sizing: border-box;
+.el-dropdown__popper {
+  --el-dropdown-menuItem-hover-color: white;
+  --el-dropdown-menuItem-hover-fill: var(--el-color-primary-light-9);
 }
 
 body {
@@ -95,32 +98,6 @@ a {
   letter-spacing: 0.5px;
   font-size: 16px;
   color: #e0e0e0;
-}
-
-/* 侧边面板 */
-.adjust-panel {
-  background: rgba(44, 44, 44, 0.9);
-  border-left: 1px solid #404040;
-  padding: 12px;
-  overflow-y: auto;
-  flex-shrink: 0;
-  width: 320px;
-}
-
-.panel-section {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.section-title {
-  font-weight: 600;
-  font-size: 13px;
-  color: #a8a8a8;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
 }
 
 /* Canvas 画布区域 */
