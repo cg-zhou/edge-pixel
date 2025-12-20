@@ -15,23 +15,6 @@ const updateValue = (key: keyof typeof params.value, value: number) => {
   canvasStore.updateFilter(key, value)
 }
 
-const getRange = (key: keyof typeof params.value) => {
-  const ranges: Record<string, { min: number; max: number }> = {
-    hue: { min: -180, max: 180 },
-    saturation: { min: -100, max: 100 },
-    brightness: { min: -100, max: 100 },
-    contrast: { min: -100, max: 100 },
-    highlights: { min: -100, max: 100 },
-    shadows: { min: -100, max: 100 },
-    exposure: { min: -100, max: 100 },
-    clarity: { min: -100, max: 100 },
-    grain: { min: 0, max: 100 },
-    fade: { min: 0, max: 100 },
-    vignette: { min: 0, max: 100 },
-    opacity: { min: 0, max: 100 },
-  }
-  return ranges[key] || { min: 0, max: 100 }
-}
 </script>
 
 <template>
@@ -40,20 +23,10 @@ const getRange = (key: keyof typeof params.value) => {
     <div class="panel-group">
       <div class="group-header">色彩</div>
       <div class="group-items">
-        <ParamControl
-          label="色调"
-          :model-value="params.hue"
-          :min="-180"
-          :max="180"
-          @update:model-value="(v) => updateValue('hue', v)"
-        />
-        <ParamControl
-          label="饱和度"
-          :model-value="params.saturation"
-          :min="-100"
-          :max="100"
-          @update:model-value="(v) => updateValue('saturation', v)"
-        />
+        <ParamControl label="色调" :model-value="params.hue" :min="-180" :max="180"
+          @update:model-value="(v) => updateValue('hue', v)" />
+        <ParamControl label="饱和度" :model-value="params.saturation" :min="-100" :max="100"
+          @update:model-value="(v) => updateValue('saturation', v)" />
       </div>
     </div>
 
@@ -61,45 +34,16 @@ const getRange = (key: keyof typeof params.value) => {
     <div class="panel-group">
       <div class="group-header">明度</div>
       <div class="group-items">
-        <ParamControl
-          label="亮度"
-          :model-value="params.brightness"
-          :min="-100"
-          :max="100"
-          @update:model-value="(v) => updateValue('brightness', v)"
-        />
-        <ParamControl
-          label="对比度"
-          :model-value="params.contrast"
-          :min="-100"
-          :max="100"
-          @update:model-value="(v) => updateValue('contrast', v)"
-        />
-      </div>
-      <div class="group-items">
-        <ParamControl
-          label="高光"
-          :model-value="params.highlights"
-          :min="-100"
-          :max="100"
-          @update:model-value="(v) => updateValue('highlights', v)"
-        />
-        <ParamControl
-          label="阴影"
-          :model-value="params.shadows"
-          :min="-100"
-          :max="100"
-          @update:model-value="(v) => updateValue('shadows', v)"
-        />
-      </div>
-      <div class="group-items">
-        <ParamControl
-          label="光感"
-          :model-value="params.exposure"
-          :min="-100"
-          :max="100"
-          @update:model-value="(v) => updateValue('exposure', v)"
-        />
+        <ParamControl label="亮度" :model-value="params.brightness" :min="-100" :max="100"
+          @update:model-value="(v) => updateValue('brightness', v)" />
+        <ParamControl label="对比度" :model-value="params.contrast" :min="-100" :max="100"
+          @update:model-value="(v) => updateValue('contrast', v)" />
+        <ParamControl label="高光" :model-value="params.highlights" :min="-100" :max="100"
+          @update:model-value="(v) => updateValue('highlights', v)" />
+        <ParamControl label="阴影" :model-value="params.shadows" :min="-100" :max="100"
+          @update:model-value="(v) => updateValue('shadows', v)" />
+        <ParamControl label="光感" :model-value="params.exposure" :min="-100" :max="100"
+          @update:model-value="(v) => updateValue('exposure', v)" />
       </div>
     </div>
 
@@ -107,36 +51,14 @@ const getRange = (key: keyof typeof params.value) => {
     <div class="panel-group">
       <div class="group-header">效果</div>
       <div class="group-items">
-        <ParamControl
-          label="清晰"
-          :model-value="params.clarity"
-          :min="-100"
-          :max="100"
-          @update:model-value="(v) => updateValue('clarity', v)"
-        />
-        <ParamControl
-          label="颗粒"
-          :model-value="params.grain"
-          :min="0"
-          :max="100"
-          @update:model-value="(v) => updateValue('grain', v)"
-        />
-      </div>
-      <div class="group-items">
-        <ParamControl
-          label="褪色"
-          :model-value="params.fade"
-          :min="0"
-          :max="100"
-          @update:model-value="(v) => updateValue('fade', v)"
-        />
-        <ParamControl
-          label="暗角"
-          :model-value="params.vignette"
-          :min="0"
-          :max="100"
-          @update:model-value="(v) => updateValue('vignette', v)"
-        />
+        <ParamControl label="模糊" :model-value="params.blur" :min="0" :max="20" :step="0.1"
+          @update:model-value="(v) => updateValue('blur', v)" />
+        <ParamControl label="颗粒" :model-value="params.grain" :min="0" :max="100"
+          @update:model-value="(v) => updateValue('grain', v)" />
+        <ParamControl label="褪色" :model-value="params.fade" :min="0" :max="100"
+          @update:model-value="(v) => updateValue('fade', v)" />
+        <ParamControl label="暗角" :model-value="params.vignette" :min="0" :max="100"
+          @update:model-value="(v) => updateValue('vignette', v)" />
       </div>
     </div>
 

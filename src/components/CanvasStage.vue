@@ -1,24 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useCanvasStore } from '../stores/canvas'
+import { applyGrain } from '../utils/grain'
 
 const canvasStore = useCanvasStore()
 const canvasEl = ref<HTMLCanvasElement | null>(null)
-const grainData = ref<Uint8ClampedArray | null>(null) // 存储静态颗粒数据
-
-const generateGrainData = (width: number, height: number, intensity: number): Uint8ClampedArray => {
-  const data = new Uint8ClampedArray(width * height * 4)
-  const grainAmount = (intensity / 100) * 255
-
-  for (let i = 0; i < data.length; i += 4) {
-    const grain = (Math.random() - 0.5) * grainAmount
-    data[i] = grain
-    data[i + 1] = grain
-    data[i + 2] = grain
-    data[i + 3] = 255
-  }
-  return data
-}
 
 const applyFilters = () => {
   const canvas = canvasEl.value
@@ -35,7 +21,7 @@ const applyFilters = () => {
     highlights,
     shadows,
     exposure,
-    clarity,
+    blur,
     grain,
     fade,
     vignette,
@@ -51,6 +37,7 @@ const applyFilters = () => {
     `saturate(${100 + saturation - fade * 0.5}%)`, // 褪色会降低饱和度
     `brightness(${100 + brightness + exposure * 0.3}%)`,
     `contrast(${100 + contrast}%)`,
+    `blur(${blur}px)`, // 模糊效果
     `invert(${fade * 0.3}%)`, // 褪色效果
   ]
 
@@ -92,27 +79,16 @@ const applyVignetteEffect = (
   ctx.fillRect(0, 0, width, height)
 }
 
-// 颗粒效果（静态颗粒）
+// 颗粒效果（像素级实现，保证生效）
 const applyGrainEffect = (
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
   intensity: number
 ) => {
-  // 如果颗粒数据不存在或尺寸改变，重新生成
-  if (!grainData.value || grainData.value.length !== width * height * 4) {
-    grainData.value = generateGrainData(width, height, intensity)
-  }
-
   const imageData = ctx.getImageData(0, 0, width, height)
-  const data = imageData.data
-
-  // 使用存储的静态颗粒数据，不重新生成
-  for (let i = 0; i < data.length; i += 4) {
-    data[i] = Math.max(0, Math.min(255, data[i] + grainData.value[i]))
-    data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + grainData.value[i + 1]))
-    data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + grainData.value[i + 2]))
-  }
+  // 使用 intensity 值作为种子，确保相同强度下颗粒图案相同（静止）
+  applyGrain(imageData, intensity, Math.round(intensity))
   ctx.putImageData(imageData, 0, 0)
 }
 

@@ -25,17 +25,9 @@ const handleUpdate = (value: number) => {
 <template>
   <div class="param-control">
     <div class="param-item">
-    <label class="param-label">{{ label }}</label>
-    <el-slider
-      class="param-slider"
-      :model-value="modelValue"
-      :min="min"
-      :max="max"
-      :step="step"
-      show-input
-      size="small"
-      @input="handleUpdate"
-    />
+      <label class="param-label">{{ label }}</label>
+      <el-slider class="param-slider" :model-value="modelValue" :min="min" :max="max" :step="step" show-input
+        size="small" @input="handleUpdate" />
     </div>
   </div>
 </template>
@@ -52,15 +44,15 @@ const handleUpdate = (value: number) => {
     width: 90px;
   }
 
-  :deep(.el-slider__runway.show-input){
+  :deep(.el-slider__runway.show-input) {
     margin-right: 10px;
   }
 }
 
-.param-item{
+.param-item {
   display: flex;
   flex-direction: row;
-  align-items:center;
+  align-items: center;
   gap: 8px;
   padding: 8px;
 }
@@ -74,6 +66,7 @@ const handleUpdate = (value: number) => {
 
 .param-slider {
   flex: 1;
+
   :deep(.el-slider__bar) {
     background-color: #409eff;
   }
@@ -81,10 +74,10 @@ const handleUpdate = (value: number) => {
 
 .param-input {
   width: 70px;
+
   :deep(.el-input__inner) {
     padding: 4px 8px;
     font-size: 12px;
   }
 }
-
 </style>

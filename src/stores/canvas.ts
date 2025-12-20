@@ -13,7 +13,7 @@ export interface FilterParams {
   exposure: number // 光感 -100 ~ 100
 
   // 效果分组
-  clarity: number // 清晰 -100 ~ 100
+  blur: number // 模糊 0 ~ 20
   grain: number // 颗粒 0 ~ 100
   fade: number // 褪色 0 ~ 100
   vignette: number // 暗角 0 ~ 100
@@ -43,7 +43,7 @@ export const useCanvasStore = defineStore('canvas', {
       highlights: 0,
       shadows: 0,
       exposure: 0,
-      clarity: 0,
+      blur: 0,
       grain: 0,
       fade: 0,
       vignette: 0,
@@ -78,7 +78,7 @@ export const useCanvasStore = defineStore('canvas', {
         highlights: 0,
         shadows: 0,
         exposure: 0,
-        clarity: 0,
+        blur: 0,
         grain: 0,
         fade: 0,
         vignette: 0,
