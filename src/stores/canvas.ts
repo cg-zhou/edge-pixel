@@ -27,6 +27,11 @@ interface CanvasState {
   filterParams: FilterParams
   imageSize: number // 图片大小（字节）
   fileName: string // 文件名
+  // 变换参数
+  scale: number // 缩放 10 ~ 200 (%)
+  rotate: number // 旋转 -180 ~ 180 (度)
+  flipH: boolean // 水平翻转
+  flipV: boolean // 垂直翻转
 }
 
 export const useCanvasStore = defineStore('canvas', {
@@ -35,6 +40,10 @@ export const useCanvasStore = defineStore('canvas', {
     imageSrc: '',
     imageSize: 0,
     fileName: '',
+    scale: 100,
+    rotate: 0,
+    flipH: false,
+    flipV: false,
     filterParams: {
       hue: 0,
       saturation: 0,
@@ -87,6 +96,19 @@ export const useCanvasStore = defineStore('canvas', {
         vignette: 0,
         opacity: 100,
       }
+    },
+    updateTransform(key: 'scale' | 'rotate' | 'flipH' | 'flipV', value: number | boolean) {
+      if (key === 'scale' || key === 'rotate') {
+        ;(this as any)[key] = value as number
+      } else {
+        ;(this as any)[key] = value as boolean
+      }
+    },
+    resetTransform() {
+      this.scale = 100
+      this.rotate = 0
+      this.flipH = false
+      this.flipV = false
     },
   },
 })

@@ -37,7 +37,7 @@ onMounted(() => {
 
 .editor-main {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 360px;
   gap: 0;
   flex: 1;
   overflow: hidden;

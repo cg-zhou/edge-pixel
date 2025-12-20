@@ -63,8 +63,10 @@ const handleDropdownCommand = (command: string) => {
 <template>
   <div class="topbar">
     <div class="topbar-section">
-      <!-- <img src="assets/logo.png" alt="Edge Pixel" class="logo" /> -->
-      <span class="topbar-title">Edge Pixel</span>
+      <a href="https://pixel.cg-zhou.top" class="topbar-link" target="_blank" rel="noopener">
+        <img src="/src/assets/logo.png" alt="Edge Pixel" class="logo" />
+        <span class="topbar-title unselectable">Edge Pixel</span>
+      </a>
     </div>
 
     <div class="topbar-section">

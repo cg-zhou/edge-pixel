@@ -28,20 +28,36 @@ const applyFilters = () => {
     opacity,
   } = canvasStore.filterParams
 
-  canvas.width = img.width
-  canvas.height = img.height
+  // 计算缩放后的尺寸
+  const scaledWidth = img.width * (canvasStore.scale / 100)
+  const scaledHeight = img.height * (canvasStore.scale / 100)
+
+  canvas.width = scaledWidth
+  canvas.height = scaledHeight
+
+  // 应用变换
+  ctx.save()
+  ctx.translate(scaledWidth / 2, scaledHeight / 2)
+
+  // 旋转
+  ctx.rotate((canvasStore.rotate * Math.PI) / 180)
+
+  // 翻转
+  if (canvasStore.flipH) ctx.scale(-1, 1)
+  if (canvasStore.flipV) ctx.scale(1, -1)
+
+  ctx.translate(-scaledWidth / 2, -scaledHeight / 2)
 
   // 构建 CSS filter
   const filters = [
     `hue-rotate(${hue}deg)`,
-    `saturate(${100 + saturation - fade * 0.5}%)`, // 褪色会降低饱和度
+    `saturate(${100 + saturation - fade * 0.5}%)`,
     `brightness(${100 + brightness + exposure * 0.3}%)`,
     `contrast(${100 + contrast}%)`,
-    `blur(${blur}px)`, // 模糊效果
-    `invert(${fade * 0.3}%)`, // 褪色效果
+    `blur(${blur}px)`,
+    `invert(${fade * 0.3}%)`,
   ]
 
-  // 高光和阴影通过亮度调整模拟
   if (highlights > 0) {
     filters.push(`brightness(${100 + highlights * 0.2}%)`)
   }
@@ -51,18 +67,20 @@ const applyFilters = () => {
 
   ctx.filter = filters.join(' ')
   ctx.globalAlpha = opacity / 100
-  ctx.drawImage(img, 0, 0)
+  ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight)
   ctx.globalAlpha = 1
 
-  // 应用暗角效果（通过 canvas 绘制）
+  // 应用暗角效果
   if (vignette > 0) {
-    applyVignetteEffect(ctx, canvas.width, canvas.height, vignette)
+    applyVignetteEffect(ctx, scaledWidth, scaledHeight, vignette)
   }
 
-  // 应用颗粒效果（通过 canvas 绘制）
+  // 应用颗粒效果
   if (grain > 0) {
-    applyGrainEffect(ctx, canvas.width, canvas.height, grain)
+    applyGrainEffect(ctx, scaledWidth, scaledHeight, grain)
   }
+
+  ctx.restore()
 }
 
 // 暗角效果

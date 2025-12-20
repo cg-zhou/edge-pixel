@@ -98,5 +98,20 @@ a {
   letter-spacing: 0.5px;
   font-size: 16px;
   color: #e0e0e0;
+  user-select: none;
+}
+
+.unselectable {
+  user-select: none;
+}
+
+.topbar-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.topbar-link:active {
+  opacity: 0.7;
 }
 
