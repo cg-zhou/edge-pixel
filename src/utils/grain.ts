@@ -71,9 +71,9 @@ export const applyGrain = (
     const random = seededRandom2D(x, y, finalSeed)
     const grain = (random - 0.5) * grainAmount
 
-    data[i] = Math.max(0, Math.min(255, data[i] + grain)) // R
-    data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + grain)) // G
-    data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + grain)) // B
+    data[i] = Math.max(0, Math.min(255, (data[i] ?? 0) + grain)) // R
+    data[i + 1] = Math.max(0, Math.min(255, (data[i + 1] ?? 0) + grain)) // G
+    data[i + 2] = Math.max(0, Math.min(255, (data[i + 2] ?? 0) + grain)) // B
     // data[i + 3] 是 Alpha，不修改
   }
 }

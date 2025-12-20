@@ -60,8 +60,11 @@ export const useCanvasStore = defineStore('canvas', {
         this.originalImage = img
         // 从 src 获取文件大小（如果是 data URL）
         if (src.startsWith('data:')) {
-          const decoded = atob(src.split(',')[1])
-          this.imageSize = decoded.length
+          const parts = src.split(',')
+          if (parts[1]) {
+            const decoded = atob(parts[1])
+            this.imageSize = decoded.length
+          }
         }
       }
       img.src = src
