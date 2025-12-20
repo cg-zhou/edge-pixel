@@ -67,7 +67,7 @@ const imageInfo = computed(() => {
   align-items: center;
   padding: 0 20px;
   font-size: 12px;
-  background: var(--card-bg);
+  background: linear-gradient(135deg, #1f2733 0%, #16202b 100%);
   box-shadow: 0 -2px 8px var(--shadow-color);
 }
 

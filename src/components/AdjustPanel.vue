@@ -76,6 +76,7 @@ const updateValue = (key: keyof typeof params.value, value: number) => {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  background: #0d1117;
 }
 
 .panel-group {

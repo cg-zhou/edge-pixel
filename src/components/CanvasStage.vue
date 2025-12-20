@@ -138,4 +138,27 @@ onMounted(() => {
   max-height: 100%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* Canvas 画布区域 */
+.canvas-container {
+  background: repeating-conic-gradient(#353535 0% 25%, #272727 0% 50%);
+  background-size: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  flex: 1;
+  position: relative;
+}
+
+.canvas-wrapper {
+  position: relative;
+  box-shadow: 0 14px 60px rgba(0, 0, 0, 0.6);
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
 </style>
