@@ -1,11 +1,23 @@
 import { defineStore } from 'pinia'
 
 export interface FilterParams {
-  hue: number // 色相 -180 ~ 180
+  // 色彩分组
+  hue: number // 色调 -180 ~ 180
   saturation: number // 饱和度 -100 ~ 100
+
+  // 明度分组
   brightness: number // 亮度 -100 ~ 100
   contrast: number // 对比度 -100 ~ 100
-  blur: number // 模糊 0 ~ 20
+  highlights: number // 高光 -100 ~ 100
+  shadows: number // 阴影 -100 ~ 100
+  exposure: number // 光感 -100 ~ 100
+
+  // 效果分组
+  clarity: number // 清晰 -100 ~ 100
+  grain: number // 颗粒 0 ~ 100
+  fade: number // 褪色 0 ~ 100
+  vignette: number // 暗角 0 ~ 100
+
   opacity: number // 透明度 0 ~ 100
 }
 
@@ -28,7 +40,13 @@ export const useCanvasStore = defineStore('canvas', {
       saturation: 0,
       brightness: 0,
       contrast: 0,
-      blur: 0,
+      highlights: 0,
+      shadows: 0,
+      exposure: 0,
+      clarity: 0,
+      grain: 0,
+      fade: 0,
+      vignette: 0,
       opacity: 100,
     },
   }),
@@ -57,7 +75,13 @@ export const useCanvasStore = defineStore('canvas', {
         saturation: 0,
         brightness: 0,
         contrast: 0,
-        blur: 0,
+        highlights: 0,
+        shadows: 0,
+        exposure: 0,
+        clarity: 0,
+        grain: 0,
+        fade: 0,
+        vignette: 0,
         opacity: 100,
       }
     },

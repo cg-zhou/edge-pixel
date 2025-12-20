@@ -119,37 +119,6 @@ a {
   margin-bottom: 4px;
 }
 
-.param-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.param-item {
-  display: grid;
-  grid-template-columns: 80px 1fr 60px;
-  align-items: center;
-  gap: 8px;
-  background: #353535;
-  border: 1px solid #404040;
-  border-radius: 6px;
-  padding: 8px;
-}
-
-.param-label {
-  font-size: 12px;
-  color: #888888;
-  font-weight: 500;
-}
-
-.param-value {
-  text-align: right;
-  font-size: 12px;
-  font-weight: 600;
-  color: #007ACC;
-  font-family: 'Monaco', monospace;
-}
-
 /* Canvas 画布区域 */
 .canvas-container {
   background: repeating-conic-gradient(#353535 0% 25%, #303030 0% 50%);

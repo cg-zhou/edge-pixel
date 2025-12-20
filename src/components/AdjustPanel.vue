@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useCanvasStore } from '../stores/canvas'
+import ParamControl from './ParamControl.vue'
 
 const canvasStore = useCanvasStore()
 
@@ -9,88 +10,138 @@ const params = computed(() => canvasStore.filterParams)
 const handleReset = () => {
   canvasStore.resetFilters()
 }
+
+const updateValue = (key: keyof typeof params.value, value: number) => {
+  canvasStore.updateFilter(key, value)
+}
+
+const getRange = (key: keyof typeof params.value) => {
+  const ranges: Record<string, { min: number; max: number }> = {
+    hue: { min: -180, max: 180 },
+    saturation: { min: -100, max: 100 },
+    brightness: { min: -100, max: 100 },
+    contrast: { min: -100, max: 100 },
+    highlights: { min: -100, max: 100 },
+    shadows: { min: -100, max: 100 },
+    exposure: { min: -100, max: 100 },
+    clarity: { min: -100, max: 100 },
+    grain: { min: 0, max: 100 },
+    fade: { min: 0, max: 100 },
+    vignette: { min: 0, max: 100 },
+    opacity: { min: 0, max: 100 },
+  }
+  return ranges[key] || { min: 0, max: 100 }
+}
 </script>
 
 <template>
   <div class="adjust-panel">
-    <div class="panel-section">
-      <div class="section-title">色相</div>
-      <div class="param-item">
-        <label class="param-label">旋转</label>
-        <el-slider
-          v-model="params.hue"
+    <!-- 色彩分组 -->
+    <div class="panel-group">
+      <div class="group-header">色彩</div>
+      <div class="group-items">
+        <ParamControl
+          label="色调"
+          :model-value="params.hue"
           :min="-180"
           :max="180"
-          @input="(v: any) => canvasStore.updateFilter('hue', v)"
+          @update:model-value="(v) => updateValue('hue', v)"
         />
-        <span class="param-value">{{ params.hue }}°</span>
+        <ParamControl
+          label="饱和度"
+          :model-value="params.saturation"
+          :min="-100"
+          :max="100"
+          @update:model-value="(v) => updateValue('saturation', v)"
+        />
       </div>
     </div>
 
-    <div class="panel-section">
-      <div class="section-title">颜色</div>
-      <div class="param-item">
-        <label class="param-label">饱和度</label>
-        <el-slider
-          v-model="params.saturation"
+    <!-- 明度分组 -->
+    <div class="panel-group">
+      <div class="group-header">明度</div>
+      <div class="group-items">
+        <ParamControl
+          label="亮度"
+          :model-value="params.brightness"
           :min="-100"
           :max="100"
-          @input="(v: any) => canvasStore.updateFilter('saturation', v)"
+          @update:model-value="(v) => updateValue('brightness', v)"
         />
-        <span class="param-value">{{ params.saturation }}</span>
+        <ParamControl
+          label="对比度"
+          :model-value="params.contrast"
+          :min="-100"
+          :max="100"
+          @update:model-value="(v) => updateValue('contrast', v)"
+        />
       </div>
-      <div class="param-item">
-        <label class="param-label">亮度</label>
-        <el-slider
-          v-model="params.brightness"
+      <div class="group-items">
+        <ParamControl
+          label="高光"
+          :model-value="params.highlights"
           :min="-100"
           :max="100"
-          @input="(v: any) => canvasStore.updateFilter('brightness', v)"
+          @update:model-value="(v) => updateValue('highlights', v)"
         />
-        <span class="param-value">{{ params.brightness }}</span>
+        <ParamControl
+          label="阴影"
+          :model-value="params.shadows"
+          :min="-100"
+          :max="100"
+          @update:model-value="(v) => updateValue('shadows', v)"
+        />
+      </div>
+      <div class="group-items">
+        <ParamControl
+          label="光感"
+          :model-value="params.exposure"
+          :min="-100"
+          :max="100"
+          @update:model-value="(v) => updateValue('exposure', v)"
+        />
       </div>
     </div>
 
-    <div class="panel-section">
-      <div class="section-title">对比</div>
-      <div class="param-item">
-        <label class="param-label">对比度</label>
-        <el-slider
-          v-model="params.contrast"
+    <!-- 效果分组 -->
+    <div class="panel-group">
+      <div class="group-header">效果</div>
+      <div class="group-items">
+        <ParamControl
+          label="清晰"
+          :model-value="params.clarity"
           :min="-100"
           :max="100"
-          @input="(v: any) => canvasStore.updateFilter('contrast', v)"
+          @update:model-value="(v) => updateValue('clarity', v)"
         />
-        <span class="param-value">{{ params.contrast }}</span>
-      </div>
-    </div>
-
-    <div class="panel-section">
-      <div class="section-title">效果</div>
-      <div class="param-item">
-        <label class="param-label">模糊</label>
-        <el-slider
-          v-model="params.blur"
+        <ParamControl
+          label="颗粒"
+          :model-value="params.grain"
           :min="0"
-          :max="20"
-          :step="0.1"
-          @input="(v: any) => canvasStore.updateFilter('blur', v)"
+          :max="100"
+          @update:model-value="(v) => updateValue('grain', v)"
         />
-        <span class="param-value">{{ params.blur.toFixed(1) }}</span>
       </div>
-      <div class="param-item">
-        <label class="param-label">透明度</label>
-        <el-slider
-          v-model="params.opacity"
+      <div class="group-items">
+        <ParamControl
+          label="褪色"
+          :model-value="params.fade"
           :min="0"
           :max="100"
-          @input="(v: any) => canvasStore.updateFilter('opacity', v)"
+          @update:model-value="(v) => updateValue('fade', v)"
         />
-        <span class="param-value">{{ params.opacity }}%</span>
+        <ParamControl
+          label="暗角"
+          :model-value="params.vignette"
+          :min="0"
+          :max="100"
+          @update:model-value="(v) => updateValue('vignette', v)"
+        />
       </div>
     </div>
 
-    <div class="panel-section">
+    <!-- 重置按钮 -->
+    <div class="panel-footer">
       <el-button type="primary" @click="handleReset">重置</el-button>
     </div>
   </div>
@@ -98,51 +149,59 @@ const handleReset = () => {
 
 <style scoped>
 .adjust-panel {
-  padding: 0;
+  padding: 12px;
   height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.panel-section {
-  padding: 16px 12px;
-  border-bottom: 1px solid #1f2733;
+.panel-group {
+  border: 1px solid #1f2733;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.panel-section:first-child {
-  padding-top: 12px;
-}
-
-.section-title {
+.group-header {
+  padding: 8px 12px;
+  background-color: rgba(31, 39, 51, 0.5);
   font-weight: 600;
   font-size: 12px;
   color: #b0b8c6;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 12px;
+  border-bottom: 1px solid #1f2733;
 }
 
-.param-item {
-  display: grid;
-  grid-template-columns: 60px 1fr 50px;
-  align-items: center;
+.group-items {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #1f2733;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
-.param-item:last-child {
-  margin-bottom: 0;
+.param-control {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 
 .param-label {
-  font-size: 12px;
+  font-size: 11px;
   color: #8a93a5;
+  white-space: nowrap;
 }
 
-.param-value {
-  text-align: right;
-  font-size: 12px;
-  font-weight: 600;
-  color: #7ab7ff;
-  font-family: 'Monaco', monospace;
+.panel-footer {
+  padding: 8px;
+  text-align: center;
 }
 </style>
