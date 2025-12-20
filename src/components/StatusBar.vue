@@ -45,15 +45,21 @@ const imageInfo = computed(() => {
     <div class="status-left">
       <span v-if="imageInfo.hasImage" class="status-group">
         <span class="label">文件:</span>
-        <span class="value">{{ imageInfo.filename }}</span>
+        <span>{{ imageInfo.filename }}</span>
       </span>
       <span v-if="imageInfo.resolution" class="status-group">
         <span class="label">尺寸:</span>
-        <span class="value">{{ imageInfo.resolution }}</span>
+        <span>{{ imageInfo.resolution }}</span>
       </span>
       <span v-if="imageInfo.filesize" class="status-group">
         <span class="label">大小:</span>
-        <span class="value">{{ imageInfo.filesize }}</span>
+        <span>{{ imageInfo.filesize }}</span>
+      </span>
+    </div>
+    <div class="status-right">
+      <span class="status-group">
+        <span class="label">DEV:</span>
+        <a href="https://cg-zhou.top" target="_blank" class="value author-link">cg-zhou</a>
       </span>
     </div>
   </div>
@@ -65,6 +71,7 @@ const imageInfo = computed(() => {
   border-top: 1px solid #404040;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 20px;
   font-size: 12px;
   background: linear-gradient(135deg, #1f2733 0%, #16202b 100%);
@@ -79,6 +86,14 @@ const imageInfo = computed(() => {
   min-width: 0;
 }
 
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
 .status-group {
   display: flex;
   align-items: center;
@@ -89,13 +104,18 @@ const imageInfo = computed(() => {
 }
 
 .label {
-  color: var(--text-tertiary);
   font-weight: bold;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.value {
-  color: var(--text-secondary);
+.author-link {
+  color: var(--el-text-color-primary);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.author-link:hover {
+  color: #4a7fff;
+  text-decoration: underline;
 }
 </style>

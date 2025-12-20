@@ -85,7 +85,7 @@ const dimensions = computed(() => {
 
 <style scoped>
 .transform-panel {
-  padding: 12px;
+  padding: 0 12px;
   height: 100%;
   overflow-y: auto;
   display: flex;
