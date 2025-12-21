@@ -4,7 +4,7 @@ English Documentation | [中文文档](README.md)
 
 [![GitHub license](https://img.shields.io/github/license/cg-zhou/edge-pixel.svg)](https://github.com/cg-zhou/edge-pixel/blob/main/LICENSE)
 
-A high-performance image editing tool powered by Alibaba Cloud ESA edge computing
+A high-performance image processing tool powered by Alibaba Cloud ESA edge computing
 
 **Online Access**: [https://pixel.cg-zhou.top](https://pixel.cg-zhou.top)
 
@@ -14,7 +14,7 @@ A high-performance image editing tool powered by Alibaba Cloud ESA edge computin
 - **Ultra-fast Loading** - Deployed on [Alibaba Cloud ESA](https://www.alibabacloud.com/product/esa)  with global CDN acceleration for faster loading speeds
 - **Efficient Processing** - Real-time preview processing with smooth user experience
 
-### Image Editing
+### Image Processing
 - **Real-time Adjustment** - Multi-dimensional parameters with real-time preview
 - **Color Adjustment** - Hue, Saturation, Invert, Grayscale
 - **Brightness & Contrast** - Brightness, Contrast, Highlights, Shadows, Exposure

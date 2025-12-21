@@ -4,7 +4,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/cg-zhou/edge-pixel.svg)](https://github.com/cg-zhou/edge-pixel/blob/main/LICENSE)
 
-一个基于 ESA 边缘计算的图像编辑工具
+一个基于 ESA 边缘计算的图像处理工具
 
 **在线访问**: [https://pixel.cg-zhou.top](https://pixel.cg-zhou.top)
 
@@ -14,7 +14,7 @@
 - **极速加载** - 部署于[阿里云ESA](https://cn.aliyun.com/product/esa)，全球 CDN 加速，提供更快的加载速度
 - **高效处理** - 实时预览处理，流畅的用户体验
 
-### 图像编辑
+### 图像处理
 - **实时调整** - 支持多维度参数实时预览
 - **色彩调整** - 色相、饱和度、反色、灰阶
 - **亮度与对比** - 亮度、对比度、高光、阴影、光感
