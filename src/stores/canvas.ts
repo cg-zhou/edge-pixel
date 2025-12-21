@@ -25,6 +25,8 @@ export interface FilterParams {
 
 interface CanvasState {
   originalImage: HTMLImageElement | null
+  previewImage: HTMLImageElement | null // 预览用缩略图（最大1920px）
+  previewRatio: number // 预览图与原图的比例（previewWidth / originalWidth）
   imageSrc: string
   filterParams: FilterParams
   imageSize: number // 图片大小（字节）
@@ -34,11 +36,16 @@ interface CanvasState {
   rotate: number // 旋转 -180 ~ 180 (度)
   flipH: boolean // 水平翻转
   flipV: boolean // 垂直翻转
+  // 加载状态
+  isLoading: boolean // 图片加载中
+  isExporting: boolean // 导出中
 }
 
 export const useCanvasStore = defineStore('canvas', {
   state: (): CanvasState => ({
     originalImage: null,
+    previewImage: null,
+    previewRatio: 1,
     imageSrc: '',
     imageSize: 0,
     fileName: '',
@@ -46,6 +53,8 @@ export const useCanvasStore = defineStore('canvas', {
     rotate: 0,
     flipH: false,
     flipV: false,
+    isLoading: false,
+    isExporting: false,
     filterParams: {
       hue: 0,
       saturation: 0,
@@ -67,6 +76,8 @@ export const useCanvasStore = defineStore('canvas', {
     setImage(src: string, fileName: string = 'image') {
       this.imageSrc = src
       this.fileName = fileName
+      this.isLoading = true
+
       const img = new Image()
       img.crossOrigin = 'anonymous'
       img.onload = () => {
@@ -79,8 +90,49 @@ export const useCanvasStore = defineStore('canvas', {
             this.imageSize = decoded.length
           }
         }
+        // 创建预览用缩略图（最大1920px）
+        this.createPreviewImage(img)
       }
       img.src = src
+    },
+    createPreviewImage(img: HTMLImageElement) {
+      const MAX_PREVIEW_SIZE = 1920
+      const { width, height } = img
+
+      // 如果图片尺寸小于最大预览尺寸，直接使用原图
+      if (width <= MAX_PREVIEW_SIZE && height <= MAX_PREVIEW_SIZE) {
+        this.previewImage = img
+        this.previewRatio = 1
+        this.isLoading = false
+        return
+      }
+
+      // 计算缩放比例
+      const ratio = Math.min(MAX_PREVIEW_SIZE / width, MAX_PREVIEW_SIZE / height)
+      this.previewRatio = ratio
+      const newWidth = Math.round(width * ratio)
+      const newHeight = Math.round(height * ratio)
+
+      // 创建离屏 Canvas 生成缩略图
+      const canvas = document.createElement('canvas')
+      canvas.width = newWidth
+      canvas.height = newHeight
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        this.previewImage = img
+        this.isLoading = false
+        return
+      }
+
+      ctx.drawImage(img, 0, 0, newWidth, newHeight)
+
+      // 创建预览图
+      const previewImg = new Image()
+      previewImg.onload = () => {
+        this.previewImage = previewImg
+        this.isLoading = false
+      }
+      previewImg.src = canvas.toDataURL('image/jpeg', 0.9)
     },
     updateFilter(key: keyof FilterParams, value: number | boolean) {
       ;(this.filterParams as any)[key] = value

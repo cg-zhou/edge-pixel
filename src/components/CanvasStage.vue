@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useCanvasStore } from '../stores/canvas'
 import { applyGrain } from '../utils/grain'
 
 const canvasStore = useCanvasStore()
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 
+let lastRenderTime = 0
+const THROTTLE_INTERVAL = 50 // 节流间隔 50ms
+
 const applyFilters = () => {
   const canvas = canvasEl.value
   const ctx = canvas?.getContext('2d')
-  const img = canvasStore.originalImage
+  // 预览使用缩略图
+  const img = canvasStore.previewImage
 
   if (!canvas || !ctx || !img) return
 
@@ -114,18 +118,44 @@ const applyGrainEffect = (
   ctx.putImageData(imageData, 0, 0)
 }
 
-const renderFrame = () => {
-  applyFilters()
-  requestAnimationFrame(renderFrame)
+// 节流渲染：保证实时反馈，每 50ms 最多渲染一次
+const throttledRender = () => {
+  const now = Date.now()
+  if (now - lastRenderTime >= THROTTLE_INTERVAL) {
+    lastRenderTime = now
+    applyFilters()
+  } else {
+    // 确保最后一次变化也能渲染
+    setTimeout(() => {
+      applyFilters()
+    }, THROTTLE_INTERVAL - (now - lastRenderTime))
+  }
 }
 
+// 监听参数变化，使用节流
+watch(
+  () => [
+    canvasStore.filterParams,
+    canvasStore.scale,
+    canvasStore.rotate,
+    canvasStore.flipH,
+    canvasStore.flipV,
+    canvasStore.previewImage,
+  ],
+  () => {
+    throttledRender()
+  },
+  { deep: true }
+)
+
 onMounted(() => {
-  renderFrame()
+  // 初始渲染
+  applyFilters()
 })
 </script>
 
 <template>
-  <div class="canvas-container">
+  <div class="canvas-container" v-loading="canvasStore.isLoading" element-loading-text="加载中...">
     <div v-if="!canvasStore.imageSrc" class="placeholder">
       <div class="placeholder-text">打开图片开始编辑</div>
     </div>
