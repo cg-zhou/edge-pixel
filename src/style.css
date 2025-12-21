@@ -33,6 +33,8 @@
   --el-text-color-disabled: #5a5a5a;
 
   --el-bg-color-overlay: #0d1117;
+
+  --el-mask-color: #0d1117DD;
 }
 
 .el-slider {
