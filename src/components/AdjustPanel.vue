@@ -63,7 +63,7 @@ const updateValue = (key: keyof typeof canvasStore.filterParams, value: number |
           <div class="panel-group">
             <div class="group-header">效果</div>
             <div class="group-items">
-              <ParamControl label="模糊" :model-value="canvasStore.filterParams.blur" :min="0" :max="20" :step="0.1"
+              <ParamControl label="模糊" :model-value="canvasStore.filterParams.blur" :min="0" :max="20" :step="1"
                 @update:model-value="(v) => updateValue('blur', v)" />
               <ParamControl label="颗粒" :model-value="canvasStore.filterParams.grain" :min="0" :max="100"
                 @update:model-value="(v) => updateValue('grain', v)" />

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useCanvasStore } from '../stores/canvas'
 import { applyGrain } from '../utils/grain'
+import { applyBlur } from '../utils/blur'
 
 const canvasStore = useCanvasStore()
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -78,13 +79,12 @@ const exportImage = async (format: ExportFormat = 'jpg') => {
     if (canvasStore.flipV) ctx.scale(1, -1)
     ctx.translate(-scaledWidth / 2, -scaledHeight / 2)
 
-    // 构建 CSS filter（blur 使用补偿后的值）
+    // 构建 CSS filter（不包含 blur，将单独处理）
     const filters = [
       `hue-rotate(${hue}deg)`,
       `saturate(${100 + saturation - fade * 0.5}%)`,
       `brightness(${100 + brightness + exposure * 0.3}%)`,
       `contrast(${100 + contrast}%)`,
-      `blur(${exportBlur}px)`,
       `invert(${fade * 0.3}%)`,
       invert ? `invert(100%)` : `invert(0%)`,
       grayscale ? `grayscale(100%)` : `grayscale(0%)`,
@@ -101,6 +101,13 @@ const exportImage = async (format: ExportFormat = 'jpg') => {
     ctx.globalAlpha = opacity / 100
     ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight)
     ctx.globalAlpha = 1
+
+    // 应用模糊效果（自定义高斯模糊，使用补偿后的值）
+    if (exportBlur > 0) {
+      const imageData = ctx.getImageData(0, 0, scaledWidth, scaledHeight)
+      applyBlur(imageData, exportBlur)
+      ctx.putImageData(imageData, 0, 0)
+    }
 
     // 应用暗角效果
     if (vignette > 0) {
@@ -151,7 +158,7 @@ const handleDropdownCommand = (command: string) => {
 </script>
 
 <template>
-  <div class="topbar" v-loading="canvasStore.isExporting" element-loading-text="导出中...">
+  <div class="topbar">
     <div class="topbar-section">
       <a href="https://pixel.cg-zhou.top" class="topbar-link" target="_blank" rel="noopener">
         <img src="/src/assets/logo.png" alt="Edge Pixel" class="logo" />

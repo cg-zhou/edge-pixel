@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue'
 import { useCanvasStore } from '../stores/canvas'
 import { applyGrain } from '../utils/grain'
+import { applyBlur } from '../utils/blur'
 
 const canvasStore = useCanvasStore()
 const canvasEl = ref<HTMLCanvasElement | null>(null)
@@ -54,13 +55,12 @@ const applyFilters = () => {
 
   ctx.translate(-scaledWidth / 2, -scaledHeight / 2)
 
-  // 构建 CSS filter
+  // 构建 CSS filter（不包含 blur，将单独处理）
   const filters = [
     `hue-rotate(${hue}deg)`,
     `saturate(${100 + saturation - fade * 0.5}%)`,
     `brightness(${100 + brightness + exposure * 0.3}%)`,
     `contrast(${100 + contrast}%)`,
-    `blur(${blur}px)`,
     `invert(${fade * 0.3}%)`,
     invert ? `invert(100%)` : `invert(0%)`,
     grayscale ? `grayscale(100%)` : `grayscale(0%)`,
@@ -77,6 +77,13 @@ const applyFilters = () => {
   ctx.globalAlpha = opacity / 100
   ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight)
   ctx.globalAlpha = 1
+
+  // 应用模糊效果（自定义高斯模糊）
+  if (blur > 0) {
+    const imageData = ctx.getImageData(0, 0, scaledWidth, scaledHeight)
+    applyBlur(imageData, blur)
+    ctx.putImageData(imageData, 0, 0)
+  }
 
   // 应用暗角效果
   if (vignette > 0) {
