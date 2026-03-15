@@ -37,7 +37,7 @@ const handleUpdate = (value: boolean) => {
 }
 
 .switch-label {
-  color: #8a93a5;
+  color: var(--sys-text-secondary);
   font-size: 12px;
 }
 </style>

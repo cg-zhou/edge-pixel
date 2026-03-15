@@ -57,7 +57,7 @@ const handleUpdate = (value: number) => {
 
 .param-label {
   font-size: 12px;
-  color: #8a93a5;
+  color: var(--sys-text-secondary);
   white-space: nowrap;
   width: 35px;
 }

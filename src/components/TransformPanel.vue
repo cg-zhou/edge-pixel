@@ -90,25 +90,26 @@ const dimensions = computed(() => {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  background: #0d1117;
+  background: var(--sys-bg-page);
 }
 
 .panel-group {
-  border: 1px solid #303844;
-  border-radius: 6px;
-  background-color: #0d1117;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--sys-border);
+  border-radius: var(--sys-radius-md);
+  background-color: var(--sys-bg-card);
+  box-shadow: var(--sys-shadow-soft);
   margin-bottom: 10px;
 }
 
 .group-header {
   padding: 10px 12px;
-  background: linear-gradient(135deg, #1f2733 0%, #16202b 100%);
+  background: var(--sys-bg-secondary);
   font-weight: 700;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-bottom: 2px solid #303844;
+  color: var(--sys-text-primary);
+  border-bottom: 1px solid var(--sys-border);
 }
 
 .group-items {
@@ -132,7 +133,7 @@ const dimensions = computed(() => {
 }
 
 .dimension-label {
-  color: #8a93a5;
+  color: var(--sys-text-secondary);
   font-size: 11px;
   padding: 4px 6px;
 }

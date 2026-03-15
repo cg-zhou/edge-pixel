@@ -96,13 +96,54 @@ const updateValue = (key: keyof typeof canvasStore.filterParams, value: number |
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: #0d1117;
+  background: var(--sys-bg-page);
 }
 
 .tabs-container {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.tabs-container :deep(.el-tabs__header) {
+  margin: 0;
+  padding: 12px 12px 8px;
+}
+
+.tabs-container :deep(.el-tabs__nav-wrap) {
+  padding: 4px;
+  background: var(--sys-bg-secondary);
+  border: 1px solid var(--sys-border);
+  border-radius: var(--sys-radius-md);
+}
+
+.tabs-container :deep(.el-tabs__nav-wrap::after) {
+  display: none;
+}
+
+.tabs-container :deep(.el-tabs__nav) {
+  border: none !important;
+  display: flex;
+  gap: 6px;
+}
+
+.tabs-container :deep(.el-tabs__item) {
+  height: 34px;
+  border: none !important;
+  border-radius: var(--sys-radius-sm);
+  color: var(--sys-text-secondary);
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tabs-container :deep(.el-tabs__item.is-active) {
+  background: var(--sys-bg-card);
+  color: var(--sys-text-primary);
+  box-shadow: var(--sys-shadow-soft);
+}
+
+.tabs-container :deep(.el-tabs__item:hover) {
+  color: var(--sys-text-primary);
 }
 
 .tabs-container :deep(.el-tabs__content) {
@@ -118,20 +159,21 @@ const updateValue = (key: keyof typeof canvasStore.filterParams, value: number |
 }
 
 .panel-group {
-  border: 1px solid #303844;
-  border-radius: 6px;
-  background-color: #0d1117;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--sys-border);
+  border-radius: var(--sys-radius-md);
+  background-color: var(--sys-bg-card);
+  box-shadow: var(--sys-shadow-soft);
 }
 
 .group-header {
   padding: 10px 12px;
-  background: linear-gradient(135deg, #1f2733 0%, #16202b 100%);
+  background: var(--sys-bg-secondary);
   font-weight: 700;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-bottom: 2px solid #303844;
+  color: var(--sys-text-primary);
+  border-bottom: 1px solid var(--sys-border);
 }
 
 .group-items {
@@ -156,7 +198,7 @@ const updateValue = (key: keyof typeof canvasStore.filterParams, value: number |
 }
 
 .param-label {
-  color: #8a93a5;
+  color: var(--sys-text-secondary);
   white-space: nowrap;
 }
 

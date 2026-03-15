@@ -1,11 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useCanvasStore } from '../stores/canvas'
 import { applyGrain } from '../utils/grain'
 import { applyBlur } from '../utils/blur'
+import { resolveTheme, setTheme, type SiteTheme } from '../utils/theme'
 
 const canvasStore = useCanvasStore()
 const fileInput = ref<HTMLInputElement | null>(null)
+const theme = ref<SiteTheme>('light')
+
+const toggleTheme = () => {
+  const nextTheme = theme.value === 'dark' ? 'light' : 'dark'
+  setTheme(nextTheme)
+  theme.value = nextTheme
+}
+
+const themeTitle = computed(() => theme.value === 'dark' ? '切换到浅色' : '切换到暗色')
+
+onMounted(() => {
+  const resolvedTheme = resolveTheme()
+  setTheme(resolvedTheme)
+  theme.value = resolvedTheme
+})
 
 const handleFileSelect = (e: Event) => {
   const input = e.target as HTMLInputElement
@@ -184,6 +201,12 @@ const handleDropdownCommand = (command: string) => {
           </el-dropdown-menu>
         </template>
       </el-dropdown>
+      <a href="https://github.com/cg-zhou/edge-pixel" class="topbar-icon-button" target="_blank" rel="noopener" title="GitHub 仓库" aria-label="GitHub 仓库">
+        <Icon icon="lucide:github" class="toolbar-icon-svg" />
+      </a>
+      <button type="button" class="topbar-icon-button" @click="toggleTheme" :title="themeTitle" :aria-label="themeTitle">
+        <Icon :icon="theme === 'dark' ? 'lucide:moon-star' : 'lucide:sun-medium'" class="toolbar-icon-svg" />
+      </button>
     </div>
 
     <input ref="fileInput" type="file" accept="image/*" @change="handleFileSelect" style="display: none" />

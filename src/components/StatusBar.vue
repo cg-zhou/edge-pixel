@@ -68,14 +68,14 @@ const imageInfo = computed(() => {
 <style scoped>
 .status-bar {
   height: 40px;
-  border-top: 1px solid #404040;
+  border-top: 1px solid var(--sys-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
   font-size: 12px;
-  background: linear-gradient(135deg, #1f2733 0%, #16202b 100%);
-  box-shadow: 0 -2px 8px var(--shadow-color);
+  background: color-mix(in srgb, var(--sys-bg-card) 92%, transparent);
+  box-shadow: var(--sys-shadow-soft);
 }
 
 .status-left {
@@ -106,6 +106,7 @@ const imageInfo = computed(() => {
 .label {
   font-weight: bold;
   letter-spacing: 0.5px;
+  color: var(--sys-text-secondary);
 }
 
 .author-link {
@@ -115,7 +116,7 @@ const imageInfo = computed(() => {
 }
 
 .author-link:hover {
-  color: #4a7fff;
+  color: var(--sys-color-primary);
   text-decoration: underline;
 }
 </style>
