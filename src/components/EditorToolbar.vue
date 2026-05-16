@@ -215,11 +215,10 @@ const handleDropdownCommand = (command: string) => {
 
 <style scoped>
 .logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(58, 90, 106, 0.4));
+  margin-right: 6px;
 }
 
 button:disabled {
